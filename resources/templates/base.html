@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Base Service</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+
+<div class="min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <header class="bg-white shadow">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+
+            <a href="/"
+               class="text-xl font-bold text-indigo-600">
+                Release Center
+            </a>
+
+            <nav class="flex gap-5 text-sm">
+
+                <a href="/"
+                   class="hover:text-indigo-600">
+                    Home
+                </a>
+
+                <a href="/applications"
+                   class="hover:text-indigo-600">
+                    Aplicações
+                </a>
+
+                <a href="/admin"
+                   class="hover:text-indigo-600">
+                    Admin
+                </a>
+
+                {% if current-user %}
+                <a href="/logout"
+                   class="hover:text-indigo-600">
+                    Logout
+                </a>
+                {% else %}
+                <a href="/login"
+                   class="hover:text-indigo-600">
+                    Login
+                </a>
+                {% endif %}
+
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- Conteúdo -->
+
+    <main class="flex-1">
+        <div class="max-w-6xl mx-auto px-6 py-8">
+
+            {% if flash.errors %}
+            <div class="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700">
+                {{ flash.errors.unknown }}
+            </div>
+            {% endif %}
+
+            {% if flash.error %}
+            <div class="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700">
+                {{ flash.error }}
+            </div>
+            {% endif %}
+
+            {% if flash.success %}
+            <div class="mb-6 rounded-lg border border-green-200 bg-green-50 p-4 text-green-700">
+                {{ flash.success }}
+            </div>
+            {% endif %}
+
+            {% block content %}
+            {% endblock %}
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+
+    <footer class="bg-white border-t">
+
+        <div class="max-w-6xl mx-auto px-6 py-5 text-sm text-gray-500">
+
+            © 2026 MSS Releases
+
+        </div>
+
+    </footer>
+
+</div>
+
+</body>
+</html>

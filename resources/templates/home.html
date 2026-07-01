@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto space-y-8">
+
+    <div>
+        <h1 class="text-3xl font-bold text-slate-800">
+            Home
+        </h1>
+
+        <p class="text-slate-500 mt-1">
+            Gerencie os sistemas disponíveis para distribuição de releases.
+        </p>
+    </div>
+
+
+    {% if errors.unknown %}
+    <div class="bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded">
+        {{errors.unknown}}
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

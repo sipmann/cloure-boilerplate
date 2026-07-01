@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Erro — Dev</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-red-50 min-h-screen p-8 font-mono">
+
+<div class="max-w-4xl mx-auto">
+
+    <div class="mb-6">
+        <span class="inline-block bg-red-600 text-white text-xs font-bold px-2 py-1 rounded uppercase tracking-widest">
+            Dev Error
+        </span>
+    </div>
+
+    <h1 class="text-2xl font-bold text-red-800 mb-2">
+        {{ type }}
+    </h1>
+
+    <p class="text-red-700 text-lg mb-8">
+        {{ message }}
+    </p>
+
+    {% if data %}
+    <div class="mb-8">
+        <h2 class="text-xs font-bold text-red-500 uppercase tracking-widest mb-2">Ex-data</h2>
+        <pre class="bg-white border border-red-200 rounded p-4 text-sm text-gray-800 overflow-x-auto whitespace-pre-wrap">{{ data }}</pre>
+    </div>
+    {% endif %}
+
+    <div>
+        <h2 class="text-xs font-bold text-red-500 uppercase tracking-widest mb-2">Stack Trace</h2>
+        <pre class="bg-white border border-red-200 rounded p-4 text-sm text-gray-700 overflow-x-auto whitespace-pre-wrap">{{ stacktrace }}</pre>
+    </div>
+
+</div>
+
+</body>
+</html>

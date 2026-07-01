@@ -4,7 +4,7 @@
             [parenthesin.components.config.aero :as config]
             [parenthesin.components.db.jdbc-hikari :as database]
             [parenthesin.components.http.clj-http :as http]
-            [parenthesin.components.router.reitit-schema :as router]
+            [microservice-boilerplate.router :as router]
             [parenthesin.components.server.reitit-pedestal-jetty :as webserver]
             [parenthesin.helpers.logs :as logs]
             [parenthesin.helpers.migrations :as migrations])
@@ -16,7 +16,7 @@
   (component/system-map
    :config (config/new-config)
    :http (http/new-http)
-   :router (router/new-router routes/routes)
+   :router (component/using (router/new-router routes/routes) [:config])
    :database (component/using (database/new-database) [:config])
    :webserver (component/using (webserver/new-webserver {:io.pedestal.http/enable-session {}}) [:config :http :router :database])))
 

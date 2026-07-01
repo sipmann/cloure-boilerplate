@@ -21,6 +21,7 @@
                                500 {:body s/Str}}
                    :handler ports.http-in/login}
               :post {:summary "login page"
+                     :parameters {:form schemas.wire-in/LoginForm}
                      :responses {200 {:body s/Str}
                                  500 {:body s/Str}}
                      :handler ports.http-in/do-login}}]

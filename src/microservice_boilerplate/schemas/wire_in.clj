@@ -21,3 +21,7 @@
 (s/defschema BtcUsdPair
   {:btc-amount s/Num
    :usd-amount s/Num})
+
+(s/defschema LoginForm
+  {:email s/Str
+   :password s/Str})

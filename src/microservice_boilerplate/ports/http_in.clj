@@ -47,14 +47,14 @@
   [{session :session :as request}]
   (logs/log :info :login :page-access)
   (if (:user session)
-    {:status 302 :headers {"Location" "/home"}}
+    {:status 302 :headers {"Location" "/home" "Content-Type" "text/plain"}}
     (templates/render request "authentication/login.html" {})))
 
 (defn do-login
   [{{{:keys [email password]} :form} :parameters}]
   (if (and (= email "admin@admin.com") (= password "admin"))
     {:status 302
-     :headers {"Location" "/home"}
+     :headers {"Location" "/home" "Content-Type" "text/plain"}
      :session {:user {:email email
                       :name "Admin"}}}
     {:status 401

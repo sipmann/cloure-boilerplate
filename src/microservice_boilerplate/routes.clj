@@ -1,5 +1,6 @@
 (ns microservice-boilerplate.routes
-  (:require [microservice-boilerplate.ports.http-in :as ports.http-in]
+  (:require [io.pedestal.http.csrf :as csrf]
+            [microservice-boilerplate.ports.http-in :as ports.http-in]
             [microservice-boilerplate.schemas.wire-in :as schemas.wire-in]
             [reitit.swagger :as swagger]
             [schema.core :as s]))
@@ -16,10 +17,11 @@
                                500 {:body s/Str}}
                    :handler ports.http-in/home}}]
    
-   ["/login" {:get {:summary "login page"
-                   :responses {200 {:body s/Str}
-                               500 {:body s/Str}}
-                   :handler ports.http-in/login}
+   ["/login" {:interceptors [(into {} (csrf/anti-forgery))]
+              :get {:summary "login page"
+                    :responses {200 {:body s/Str}
+                                500 {:body s/Str}}
+                    :handler ports.http-in/login}
               :post {:summary "login page"
                      :parameters {:form schemas.wire-in/LoginForm}
                      :responses {200 {:body s/Str}

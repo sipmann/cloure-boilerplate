@@ -1,5 +1,6 @@
 (ns microservice-boilerplate.router
   (:require [com.stuartsierra.component :as component]
+            [io.pedestal.http.ring-middlewares :as ring-middlewares]
             [microservice-boilerplate.templates :as templates]
             [muuntaja.core :as m]
             [parenthesin.helpers.logs :as logs]
@@ -31,8 +32,8 @@
     (.printStackTrace ex pw)
     (str sw)))
 
-(defn- dev-error-response [^Throwable ex]
-  (templates/render "error.html"
+(defn- dev-error-response [request ^Throwable ex]
+  (templates/render request "error.html"
                     {:type       (-> ex .getClass .getName)
                      :message    (.getMessage ex)
                      :data       (when (instance? clojure.lang.ExceptionInfo ex)
@@ -40,10 +41,10 @@
                      :stacktrace (stacktrace-str ex)}))
 
 (defn- make-exception-info-handler [env]
-  (fn [exception _request]
+  (fn [exception request]
     (logs/log :error exception "Server exception:" :exception exception)
     (if (= env :dev)
-      (dev-error-response exception)
+      (dev-error-response request exception)
       {:status 500 :body "Internal error."})))
 
 (defn- router-settings [env]
@@ -52,7 +53,8 @@
           :muuntaja (m/create
                      (-> m/default-options
                          (assoc-in [:formats "application/json" :decoder-opts :bigdecimals] true)))
-          :interceptors [swagger/swagger-feature
+          :interceptors [(select-keys (ring-middlewares/session) [:name :enter :leave])
+                         swagger/swagger-feature
                          (parameters/parameters-interceptor)
                          (muuntaja/format-negotiate-interceptor)
                          (muuntaja/format-response-interceptor)

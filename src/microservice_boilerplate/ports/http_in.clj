@@ -40,21 +40,22 @@
      :body "btc withdrawal amount can't be positive."}))
 
 (defn home
-  [_]
-  (templates/render "home.html" {}))
+  [request]
+  (templates/render request "home.html" {}))
 
 (defn login
-  [{session :session}]
+  [{session :session :as request}]
   (logs/log :info :login :page-access)
-  (if (:username session)
+  (if (:user session)
     {:status 302 :headers {"Location" "/home"}}
-    (templates/render "authentication/login.html" {})))
+    (templates/render request "authentication/login.html" {})))
 
 (defn do-login
-  [{{{:keys [username password]} :body} :parameters}]
-  (if (and (= username "admin") (= password "admin"))
+  [{{{:keys [email password]} :form} :parameters}]
+  (if (and (= email "admin@admin.com") (= password "admin"))
     {:status 302
      :headers {"Location" "/home"}
-     :session {:username username}}
+     :session {:user {:email email
+                      :name "Admin"}}}
     {:status 401
-     :body "invalid username or password"}))
+     :body "invalid email or password"}))

@@ -20,6 +20,15 @@
          uberjar   {:doc  "builds the uberjar"
                     :task (clojure {:dir "."} "-T:build all")}
 
+         migrate   {:doc  "runs all pending migrations"
+                    :task (clojure {:dir "."} "-M:migratus migrate")}
+
+         rollback  {:doc  "rolls back the latest migration"
+                    :task (clojure {:dir "."} "-M:migratus rollback")}
+
+         create-migration {:doc  "creates a new migration, usage: bb create-migration migration-name"
+                            :task (apply clojure {:dir "."} "-M:migratus" "create" *command-line-args*)}
+
          format    {:doc  "Formats codebase"
                     :task (try
                             (shell {:dir "src"} "cljstyle fix")

@@ -1,8 +1,8 @@
 (ns microservice-boilerplate.ports.http-in
   (:require [microservice-boilerplate.adapters :as adapters]
             [microservice-boilerplate.controllers :as controllers]
-            [microservice-boilerplate.templates :as templates]
-            [parenthesin.helpers.logs :as logs]))
+            [microservice-boilerplate.controllers.authentication :as controllers.authentication]
+            [microservice-boilerplate.templates :as templates]))
 
 (defn get-btc-usd-price
   [{components :components}]
@@ -44,18 +44,9 @@
   (templates/render request "home.html" {}))
 
 (defn login
-  [{session :session :as request}]
-  (logs/log :info :login :page-access)
-  (if (:user session)
-    {:status 302 :headers {"Location" "/home" "Content-Type" "text/plain"}}
-    (templates/render request "authentication/login.html" {})))
+  [request]
+  (controllers.authentication/login-page request))
 
 (defn do-login
-  [{{{:keys [email password]} :form} :parameters}]
-  (if (and (= email "admin@admin.com") (= password "admin"))
-    {:status 302
-     :headers {"Location" "/home" "Content-Type" "text/plain"}
-     :session {:user {:email email
-                      :name "Admin"}}}
-    {:status 401
-     :body "invalid email or password"}))
+  [request]
+  (controllers.authentication/do-login! request))

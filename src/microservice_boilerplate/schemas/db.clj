@@ -16,3 +16,16 @@
                        :wallet/btc_amount
                        :wallet/usd_amount_at
                        :wallet/created_at]))
+
+(def users {:users/id s/Int
+            :users/email s/Str
+            :users/name s/Str
+            :users/password_hash s/Str
+            :users/role s/Str})
+
+(s/defschema User
+  (select-keys users [:users/id
+                      :users/email
+                      :users/name
+                      :users/password_hash
+                      :users/role]))

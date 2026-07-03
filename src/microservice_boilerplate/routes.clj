@@ -28,6 +28,13 @@
                                  500 {:body s/Str}}
                      :handler ports.http-in/do-login}}]
    
+   ["/logout" {:get {:summary "logout page"
+                   :responses {200 {:body s/Str}
+                               500 {:body s/Str}}
+                   :handler (fn [_] {:status 302
+                                     :headers {"Location" "/login"}
+                                     :session nil})}}]
+   
    ["/wallet"
     {:swagger {:tags ["wallet"]}}
 

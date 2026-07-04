@@ -24,3 +24,9 @@
 
     {:status 401
      :body "invalid email or password"}))
+
+(s/defn logout!
+  [_request]
+  {:status 302
+   :headers {"Location" "/login"}
+   :session nil})

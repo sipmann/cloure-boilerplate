@@ -31,9 +31,7 @@
    ["/logout" {:get {:summary "logout page"
                    :responses {200 {:body s/Str}
                                500 {:body s/Str}}
-                   :handler (fn [_] {:status 302
-                                     :headers {"Location" "/login"}
-                                     :session nil})}}]
+                   :handler ports.http-in/logout}}]
    
    ["/wallet"
     {:swagger {:tags ["wallet"]}}

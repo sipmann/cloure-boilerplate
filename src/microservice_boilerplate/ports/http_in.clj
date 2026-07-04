@@ -50,3 +50,7 @@
 (defn do-login
   [request]
   (controllers.authentication/do-login! request))
+
+(defn logout
+  [request]
+  (controllers.authentication/logout! request))

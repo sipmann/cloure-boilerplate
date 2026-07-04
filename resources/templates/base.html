@@ -35,12 +35,15 @@
                     Aplicações
                 </a>
 
+                {% if current-user %}
+
+                {% if current-user.role = "admin" %}
                 <a href="/admin"
                    class="hover:text-indigo-600">
                     Admin
                 </a>
+                {% endif %}
 
-                {% if current-user %}
                 <a href="/logout"
                    class="hover:text-indigo-600">
                     Logout

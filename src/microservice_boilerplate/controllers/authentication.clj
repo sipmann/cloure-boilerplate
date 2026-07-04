@@ -13,7 +13,6 @@
 (s/defn do-login!
   [{{{:keys [email password]} :form} :parameters
     {:keys [database]} :components}]
-
   (if-let [user (db.users/user-by-email email database)]
     (if (security.password/check-password password (:password-hash user))
       {:status 302

@@ -1,9 +1,13 @@
 (ns microservice-boilerplate.templates
   (:require [clojure.java.io :as io]
             [selmer.parser :as parser]
+            [parenthesin.helpers.logs :as log]
             [io.pedestal.http.csrf :as csrf]))
 
 (parser/set-resource-path! (io/resource "templates"))
+
+;FIXME: Temp fix for dev environment
+(parser/cache-off!)
 
 (defn- csrf-field-html [token]
   (str "<input id=\"__anti-forgery-token\" name=\"__anti-forgery-token\" type=\"hidden\" value=\"" token "\" />"))
@@ -15,5 +19,5 @@
   {:status  200
    :headers {"Content-Type" "text/html; charset=utf-8"}
    :body    (parser/render-file template (assoc params
-                                                  :current-user (get-in request [:session :user])
-                                                  :csrf-token (csrf/anti-forgery-token request)))})
+                                                :current-user (get-in request [:session :user])
+                                                :csrf-token (csrf/anti-forgery-token request)))})

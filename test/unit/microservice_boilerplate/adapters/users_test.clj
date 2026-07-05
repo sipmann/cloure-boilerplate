@@ -28,3 +28,7 @@
   (properties/for-all [user-db (g/generator schemas.db/User)]
                       (= user-db
                          (adapters.users/model->db (adapters.users/db->model user-db)))))
+
+(defspec new-user-model->db-test 50
+  (properties/for-all [new-user-model (g/generator schemas.model/NewUser)]
+                      (s/validate schemas.db/NewUser (adapters.users/new-user-model->db new-user-model))))

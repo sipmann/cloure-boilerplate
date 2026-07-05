@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="max-w-md mx-auto bg-white rounded shadow p-6">
+
+    <h1 class="text-2xl font-bold mb-6">
+        Novo usuário
+    </h1>
+
+    {% if error %}
+    <div class="mb-4 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <form method="post" action="/users">
+        {% csrf-field %}
+        <div class="mb-4">
+            <label>Nome</label>
+            <input
+                    class="w-full border rounded p-2"
+                    type="text"
+                    name="name"
+                    value="{{ name }}">
+        </div>
+
+        <div class="mb-4">
+            <label>Email</label>
+            <input
+                    class="w-full border rounded p-2"
+                    type="email"
+                    name="email"
+                    value="{{ email }}">
+        </div>
+
+        <div class="mb-4">
+            <label>Senha</label>
+            <input
+                    class="w-full border rounded p-2"
+                    type="password"
+                    name="password">
+        </div>
+
+        <div class="mb-6">
+            <label>Perfil</label>
+            <select class="w-full border rounded p-2" name="role">
+                <option value="user" {% if role = "user" %}selected{% endif %}>user</option>
+                <option value="admin" {% if role = "admin" %}selected{% endif %}>admin</option>
+            </select>
+        </div>
+
+        <button
+                class="bg-indigo-600 text-white rounded px-4 py-2 w-full">
+            Criar
+        </button>
+    </form>
+</div>
+
+{% endblock %}

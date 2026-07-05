@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="max-w-md mx-auto bg-white rounded shadow p-6">
+
+    <h1 class="text-2xl font-bold mb-6">
+        Editar usuário
+    </h1>
+
+    <form method="post" action="/users/{{ user.id }}">
+        {% csrf-field %}
+        <div class="mb-4">
+            <label>Nome</label>
+            <input
+                    class="w-full border rounded p-2"
+                    type="text"
+                    name="name"
+                    value="{{ user.name }}">
+        </div>
+
+        <div class="mb-4">
+            <label>Email</label>
+            <input
+                    class="w-full border rounded p-2"
+                    type="email"
+                    name="email"
+                    value="{{ user.email }}">
+        </div>
+
+        <div class="mb-4">
+            <label>Nova senha (deixe em branco para manter a atual)</label>
+            <input
+                    class="w-full border rounded p-2"
+                    type="password"
+                    name="password">
+        </div>
+
+        <div class="mb-6">
+            <label>Perfil</label>
+            <select class="w-full border rounded p-2" name="role">
+                <option value="user" {% if user.role = "user" %}selected{% endif %}>user</option>
+                <option value="admin" {% if user.role = "admin" %}selected{% endif %}>admin</option>
+            </select>
+        </div>
+
+        <button
+                class="bg-indigo-600 text-white rounded px-4 py-2 w-full">
+            Salvar
+        </button>
+    </form>
+</div>
+
+<div class="max-w-md mx-auto mt-4">
+    <form method="post" action="/users/{{ user.id }}/delete"
+          onsubmit="return confirm('Excluir este usuário?')">
+        {% csrf-field %}
+        <button class="w-full border border-red-300 text-red-700 rounded px-4 py-2 hover:bg-red-50">
+            Excluir usuário
+        </button>
+    </form>
+</div>
+
+{% endblock %}

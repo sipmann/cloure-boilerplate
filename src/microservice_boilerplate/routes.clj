@@ -32,7 +32,46 @@
                    :responses {200 {:body s/Str}
                                500 {:body s/Str}}
                    :handler ports.http-in/logout}}]
-   
+
+   ["/users"
+    {:interceptors [(into {} (csrf/anti-forgery))]}
+
+    ["" {:get {:summary "list all users alphabetically"
+               :responses {200 {:body s/Str}
+                           500 {:body s/Str}}
+               :handler ports.http-in/list-users}
+         :post {:summary "create a user"
+                :parameters {:form schemas.wire-in/UserForm}
+                :responses {200 {:body s/Str}
+                            500 {:body s/Str}}
+                :handler ports.http-in/create-user!}}]
+
+    ["/new" {:conflicting true
+             :get {:summary "new user form"
+                   :responses {200 {:body s/Str}
+                               500 {:body s/Str}}
+                   :handler ports.http-in/new-user-page}}]
+
+    ["/:id/edit" {:get {:summary "edit user form"
+                       :parameters {:path {:id s/Int}}
+                       :responses {200 {:body s/Str}
+                                   404 {:body s/Str}
+                                   500 {:body s/Str}}
+                       :handler ports.http-in/edit-user-page}}]
+
+    ["/:id" {:conflicting true
+             :post {:summary "update a user"
+                    :parameters {:path {:id s/Int}
+                                 :form schemas.wire-in/UserForm}
+                    :responses {404 {:body s/Str}
+                                500 {:body s/Str}}
+                    :handler ports.http-in/update-user!}}]
+
+    ["/:id/delete" {:post {:summary "delete a user"
+                           :parameters {:path {:id s/Int}}
+                           :responses {500 {:body s/Str}}
+                           :handler ports.http-in/delete-user!}}]]
+
    ["/wallet"
     {:swagger {:tags ["wallet"]}}
 

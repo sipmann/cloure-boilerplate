@@ -25,3 +25,9 @@
 (s/defschema LoginForm
   {:email s/Str
    :password s/Str})
+
+(s/defschema UserForm
+  {:name s/Str
+   :email s/Str
+   :password s/Str
+   :role s/Str})

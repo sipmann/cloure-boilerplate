@@ -18,3 +18,10 @@
    :users/name name
    :users/password_hash password-hash
    :users/role role})
+
+(s/defn new-user-model->db :- schemas.db/NewUser
+  [{:keys [email name password-hash role]} :- schemas.model/NewUser]
+  {:users/email email
+   :users/name name
+   :users/password_hash password-hash
+   :users/role role})

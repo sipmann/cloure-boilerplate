@@ -29,3 +29,9 @@
                       :users/name
                       :users/password_hash
                       :users/role]))
+
+(s/defschema NewUser
+  (select-keys users [:users/email
+                      :users/name
+                      :users/password_hash
+                      :users/role]))

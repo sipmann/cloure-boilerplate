@@ -7,3 +7,9 @@
    :name s/Str
    :password-hash s/Str
    :role s/Str})
+
+(s/defschema NewUser
+  {:email s/Str
+   :name s/Str
+   :password-hash s/Str
+   :role s/Str})

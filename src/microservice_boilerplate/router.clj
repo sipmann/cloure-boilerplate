@@ -54,6 +54,7 @@
                      (-> m/default-options
                          (assoc-in [:formats "application/json" :decoder-opts :bigdecimals] true)))
           :interceptors [(select-keys (ring-middlewares/session) [:name :enter :leave])
+                         (select-keys (ring-middlewares/flash) [:name :enter :leave])
                          swagger/swagger-feature
                          (parameters/parameters-interceptor)
                          (muuntaja/format-negotiate-interceptor)

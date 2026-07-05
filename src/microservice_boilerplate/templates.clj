@@ -20,4 +20,5 @@
    :headers {"Content-Type" "text/html; charset=utf-8"}
    :body    (parser/render-file template (assoc params
                                                 :current-user (get-in request [:session :user])
-                                                :csrf-token (csrf/anti-forgery-token request)))})
+                                                :csrf-token (csrf/anti-forgery-token request)
+                                                :flash (:flash request)))})

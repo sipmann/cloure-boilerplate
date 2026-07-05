@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto space-y-8">
+
+    <div class="flex items-center justify-between">
+        <div>
+            <h1 class="text-3xl font-bold text-slate-800">
+                Usuários
+            </h1>
+
+            <p class="text-slate-500 mt-1">
+                Lista de usuários cadastrados, em ordem alfabética.
+            </p>
+        </div>
+
+        <a href="/users/new"
+           class="bg-indigo-600 text-white rounded px-4 py-2 hover:bg-indigo-700">
+            Novo usuário
+        </a>
+    </div>
+
+    <div class="bg-white rounded shadow overflow-x-auto">
+        <table class="min-w-full text-sm text-left">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-xs">
+                <tr>
+                    <th class="px-4 py-3">Nome</th>
+                    <th class="px-4 py-3">Email</th>
+                    <th class="px-4 py-3">Perfil</th>
+                    <th class="px-4 py-3"></th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                {% for user in users %}
+                <tr>
+                    <td class="px-4 py-3">{{ user.name }}</td>
+                    <td class="px-4 py-3">{{ user.email }}</td>
+                    <td class="px-4 py-3">{{ user.role }}</td>
+                    <td class="px-4 py-3 text-right">
+                        <a href="/users/{{ user.id }}/edit"
+                           class="text-indigo-600 hover:underline">
+                            Editar
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}

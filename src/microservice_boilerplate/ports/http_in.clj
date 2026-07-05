@@ -2,6 +2,7 @@
   (:require [microservice-boilerplate.adapters :as adapters]
             [microservice-boilerplate.controllers :as controllers]
             [microservice-boilerplate.controllers.authentication :as controllers.authentication]
+            [microservice-boilerplate.controllers.users :as controllers.users]
             [microservice-boilerplate.templates :as templates]))
 
 (defn get-btc-usd-price
@@ -54,3 +55,27 @@
 (defn logout
   [request]
   (controllers.authentication/logout! request))
+
+(defn list-users
+  [request]
+  (controllers.users/list-all request))
+
+(defn new-user-page
+  [request]
+  (controllers.users/new-page request))
+
+(defn create-user!
+  [request]
+  (controllers.users/create! request))
+
+(defn edit-user-page
+  [request]
+  (controllers.users/edit-page request))
+
+(defn update-user!
+  [request]
+  (controllers.users/update! request))
+
+(defn delete-user!
+  [request]
+  (controllers.users/delete! request))

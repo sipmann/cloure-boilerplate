@@ -36,11 +36,20 @@
                     <td class="px-4 py-3">{{ user.name }}</td>
                     <td class="px-4 py-3">{{ user.email }}</td>
                     <td class="px-4 py-3">{{ user.role }}</td>
-                    <td class="px-4 py-3 text-right">
+                    <td class="px-4 py-3 text-right whitespace-nowrap">
                         <a href="/users/{{ user.id }}/edit"
                            class="text-indigo-600 hover:underline">
                             Editar
                         </a>
+                        <form method="post" action="/users/{{ user.id }}/delete"
+                              class="inline"
+                              onsubmit="return confirm('Excluir este usuário?')">
+                            {% csrf-field %}
+                            <button type="submit"
+                                    class="ml-3 text-red-600 hover:underline">
+                                Excluir
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 {% endfor %}

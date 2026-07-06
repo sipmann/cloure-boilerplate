@@ -74,11 +74,17 @@
     (flow "shouldn't authenticate a user with wrong credentials"
       [login-page (state-flow.server/request! {:method :get :uri "/login"})
        :let [cookie (session-cookie login-page)
-             token (csrf-token login-page)]]
-      (match? {:status 401
-               :body "invalid email or password"}
-              (form-post "/login" cookie token {:email "admin@admin.com"
-                                                :password "wrong-password"})))
+             token (csrf-token login-page)]
+       failed-login-response (form-post "/login" cookie token {:email "admin@admin.com"
+                                                                :password "wrong-password"})
+       login-page-with-flash (state-flow.server/request! {:method :get
+                                                          :uri "/login"
+                                                          :headers {"Cookie" cookie}})]
+      (match? (matchers/embeds {:status 302 :headers {"Location" "/login"}})
+              failed-login-response)
+
+      (match? {:status 200 :body #"Email ou senha inválidos"}
+              login-page-with-flash))
 
     (flow "should authenticate a user with the right credentials"
       [login-page (state-flow.server/request! {:method :get :uri "/login"})

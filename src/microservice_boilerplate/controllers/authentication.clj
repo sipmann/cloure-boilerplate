@@ -19,11 +19,13 @@
        :headers {"Location" "/home" "Content-Type" "text/plain"}
        :session {:user (dissoc user :password-hash)}}
 
-      {:status 401 ;TODO: Use flash and redirect to login page with error message
-       :body "invalid email or password"})
+      {:status 302
+       :headers {"Location" "/login" "Content-Type" "text/plain"}
+       :flash {:error "Email ou senha inválidos."}})
 
-    {:status 401
-     :body "invalid email or password"}))
+    {:status 302
+     :headers {"Location" "/login" "Content-Type" "text/plain"}
+     :flash {:error "Email ou senha inválidos."}}))
 
 (s/defn logout!
   [_request]

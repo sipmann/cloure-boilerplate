@@ -63,9 +63,9 @@ jobs:
           cli: 1.12.0.1530
 
       - name: Install babashka
-        uses: babashka/setup-babashka@v0
+        uses: turtlequeue/setup-babashka@v1.8.0
         with:
-          bb-version: 1.12.218
+          babashka-version: 1.12.218
 
       - name: Setup clojure-lsp
         uses: clojure-lsp/setup-clojure-lsp@v1.0.2

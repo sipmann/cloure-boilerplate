@@ -16,7 +16,7 @@
                    :responses {200 {:body s/Str}
                                500 {:body s/Str}}
                    :handler ports.http-in/home}}]
-   
+
    ["/login" {:interceptors [(into {} (csrf/anti-forgery))]
               :get {:summary "login page"
                     :responses {200 {:body s/Str}
@@ -27,11 +27,11 @@
                      :responses {200 {:body s/Str}
                                  500 {:body s/Str}}
                      :handler ports.http-in/do-login}}]
-   
+
    ["/logout" {:get {:summary "logout page"
-                   :responses {200 {:body s/Str}
-                               500 {:body s/Str}}
-                   :handler ports.http-in/logout}}]
+                     :responses {200 {:body s/Str}
+                                 500 {:body s/Str}}
+                     :handler ports.http-in/logout}}]
 
    ["/users"
     {:interceptors [(into {} (csrf/anti-forgery))]}
@@ -53,11 +53,11 @@
                    :handler ports.http-in/new-user-page}}]
 
     ["/:id/edit" {:get {:summary "edit user form"
-                       :parameters {:path {:id s/Int}}
-                       :responses {200 {:body s/Str}
-                                   404 {:body s/Str}
-                                   500 {:body s/Str}}
-                       :handler ports.http-in/edit-user-page}}]
+                        :parameters {:path {:id s/Int}}
+                        :responses {200 {:body s/Str}
+                                    404 {:body s/Str}
+                                    500 {:body s/Str}}
+                        :handler ports.http-in/edit-user-page}}]
 
     ["/:id" {:conflicting true
              :post {:summary "update a user"

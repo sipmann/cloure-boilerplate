@@ -1,10 +1,10 @@
 (ns microservice-boilerplate.server
   (:require [com.stuartsierra.component :as component]
+            [microservice-boilerplate.router :as router]
             [microservice-boilerplate.routes :as routes]
             [parenthesin.components.config.aero :as config]
             [parenthesin.components.db.jdbc-hikari :as database]
             [parenthesin.components.http.clj-http :as http]
-            [microservice-boilerplate.router :as router]
             [parenthesin.components.server.reitit-pedestal-jetty :as webserver]
             [parenthesin.helpers.logs :as logs]
             [parenthesin.helpers.migrations :as migrations])
@@ -27,8 +27,6 @@
        component/start
        (reset! system-atom)))
 
-
-#_{:clj-kondo/ignore [:unused-public-var]}
 (defn stop-system! []
   (swap!
    system-atom
@@ -37,8 +35,7 @@
 (defn -main
   "The entry-point for 'gen-class'"
   [& _args]
-  (start-system! (build-system-map))
-  )
+  (start-system! (build-system-map)))
 
 (comment
   (stop-system!))

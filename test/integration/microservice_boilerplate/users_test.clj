@@ -45,7 +45,7 @@
 
     (flow "returns users sorted by name regardless of case (seeded admin user comes first)"
       (match? [{:name "Admin"}
-              {:name "ana"}
-              {:name "Bruno"}
-              {:name "Zoe"}]
+               {:name "ana"}
+               {:name "Bruno"}
+               {:name "Zoe"}]
               (db.users/all-users database)))))

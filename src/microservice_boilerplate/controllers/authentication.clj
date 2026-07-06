@@ -1,8 +1,8 @@
 (ns microservice-boilerplate.controllers.authentication
-  (:require [schema.core :as s]
-            [microservice-boilerplate.database.users :as db.users]
+  (:require [microservice-boilerplate.database.users :as db.users]
             [microservice-boilerplate.security.password :as security.password]
-            [microservice-boilerplate.templates :as templates]))
+            [microservice-boilerplate.templates :as templates]
+            [schema.core :as s]))
 
 (s/defn login-page
   [{session :session :as request}]
@@ -19,11 +19,13 @@
        :headers {"Location" "/home" "Content-Type" "text/plain"}
        :session {:user (dissoc user :password-hash)}}
 
-      {:status 401 ;TODO: Use flash and redirect to login page with error message
-       :body "invalid email or password"})
+      {:status 302
+       :headers {"Location" "/login" "Content-Type" "text/plain"}
+       :flash {:error "Email ou senha inválidos."}})
 
-    {:status 401
-     :body "invalid email or password"}))
+    {:status 302
+     :headers {"Location" "/login" "Content-Type" "text/plain"}
+     :flash {:error "Email ou senha inválidos."}}))
 
 (s/defn logout!
   [_request]

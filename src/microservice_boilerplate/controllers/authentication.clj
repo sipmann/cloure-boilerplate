@@ -1,8 +1,8 @@
 (ns microservice-boilerplate.controllers.authentication
-  (:require [schema.core :as s]
-            [microservice-boilerplate.database.users :as db.users]
+  (:require [microservice-boilerplate.database.users :as db.users]
             [microservice-boilerplate.security.password :as security.password]
-            [microservice-boilerplate.templates :as templates]))
+            [microservice-boilerplate.templates :as templates]
+            [schema.core :as s]))
 
 (s/defn login-page
   [{session :session :as request}]

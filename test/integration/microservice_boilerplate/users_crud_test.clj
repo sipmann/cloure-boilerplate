@@ -71,8 +71,8 @@
                                                        :role "user"})
      created (state/invoke #(db.users/user-by-email "carlos.teste@example.com" database))
      after-create-list (state-flow.server/request! {:method :get
-                                                     :uri    "/users"
-                                                     :headers {"Cookie" cookie}})
+                                                    :uri    "/users"
+                                                    :headers {"Cookie" cookie}})
      edit-page (state-flow.server/request! {:method :get
                                             :uri    (str "/users/" (:id created) "/edit")
                                             :headers {"Cookie" cookie}})
@@ -84,13 +84,13 @@
                                  :role "admin"})
      updated (state/invoke #(db.users/user-by-email "carlos.teste@example.com" database))
      after-update-list (state-flow.server/request! {:method :get
-                                                     :uri    "/users"
-                                                     :headers {"Cookie" cookie}})
+                                                    :uri    "/users"
+                                                    :headers {"Cookie" cookie}})
      delete-response (form-post (str "/users/" (:id created) "/delete") cookie edit-token nil)
      deleted (state/invoke #(db.users/user-by-email "carlos.teste@example.com" database))
      after-delete-list (state-flow.server/request! {:method :get
-                                                     :uri    "/users"
-                                                     :headers {"Cookie" cookie}})]
+                                                    :uri    "/users"
+                                                    :headers {"Cookie" cookie}})]
 
     (match? (matchers/embeds {:status 302 :headers {"Location" "/users"}})
             create-response)

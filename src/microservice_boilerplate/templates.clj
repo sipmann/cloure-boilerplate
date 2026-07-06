@@ -1,8 +1,7 @@
 (ns microservice-boilerplate.templates
   (:require [clojure.java.io :as io]
-            [selmer.parser :as parser]
-            [parenthesin.helpers.logs :as log]
-            [io.pedestal.http.csrf :as csrf]))
+            [io.pedestal.http.csrf :as csrf]
+            [selmer.parser :as parser]))
 
 (parser/set-resource-path! (io/resource "templates"))
 

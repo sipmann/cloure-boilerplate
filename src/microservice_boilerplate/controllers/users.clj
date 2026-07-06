@@ -20,10 +20,10 @@
     {:keys [database]} :components :as request}]
   (try
     (db.users/insert! (adapters.users/new-user-model->db
-                        {:email email
-                         :name name
-                         :password-hash (security.password/hash-password password)
-                         :role role})
+                       {:email email
+                        :name name
+                        :password-hash (security.password/hash-password password)
+                        :role role})
                       database)
     {:status 302
      :headers {"Location" "/users" "Content-Type" "text/plain"}

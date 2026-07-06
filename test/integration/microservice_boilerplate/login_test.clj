@@ -76,7 +76,7 @@
        :let [cookie (session-cookie login-page)
              token (csrf-token login-page)]
        failed-login-response (form-post "/login" cookie token {:email "admin@admin.com"
-                                                                :password "wrong-password"})
+                                                               :password "wrong-password"})
        login-page-with-flash (state-flow.server/request! {:method :get
                                                           :uri "/login"
                                                           :headers {"Cookie" cookie}})]
@@ -91,7 +91,7 @@
        :let [cookie (session-cookie login-page)
              token (csrf-token login-page)]
        login-response (form-post "/login" cookie token {:email "admin@admin.com"
-                                                         :password "admin"})]
+                                                        :password "admin"})]
       (match? (matchers/embeds {:status 302
                                 :headers {"Location" "/home"}})
               login-response)

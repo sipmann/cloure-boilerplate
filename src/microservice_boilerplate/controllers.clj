@@ -6,7 +6,8 @@
             [microservice-boilerplate.schemas.types :as schemas.types]
             [schema.core :as s]))
 
-(defn- instant-now [] (java.util.Date/from (java.time.Instant/now)))
+(s/defn ^:private instant-now :- java.util.Date []
+  (java.util.Date/from (java.time.Instant/now)))
 
 (s/defschema WalletHistory
   {:entries [schemas.db/WalletEntry]

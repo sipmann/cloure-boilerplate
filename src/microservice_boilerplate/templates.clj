@@ -1,6 +1,7 @@
 (ns microservice-boilerplate.templates
   (:require [clojure.java.io :as io]
             [io.pedestal.http.csrf :as csrf]
+            [schema.core :as s]
             [selmer.parser :as parser]))
 
 (parser/set-resource-path! (io/resource "templates"))
@@ -8,7 +9,8 @@
 ;FIXME: Temp fix for dev environment
 (parser/cache-off!)
 
-(defn- csrf-field-html [token]
+(s/defn ^:private csrf-field-html :- s/Str
+  [token :- s/Str]
   (str "<input id=\"__anti-forgery-token\" name=\"__anti-forgery-token\" type=\"hidden\" value=\"" token "\" />"))
 
 (parser/add-tag! :csrf-field (fn [_ context-map] (csrf-field-html (:csrf-token context-map))))

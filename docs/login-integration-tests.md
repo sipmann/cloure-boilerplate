@@ -7,14 +7,14 @@ disso não é óbvio olhando só o código do handler.
 
 ## Fluxo de login na aplicação
 
-- `GET /login` (`ports/http_in.clj`): se já existe `:user` na sessão, redireciona
+- `GET /login` (`ports/http_in/pages.clj`): se já existe `:user` na sessão, redireciona
   (302) para `/home`; caso contrário renderiza `authentication/login.html`.
 - `POST /login`: valida `{:email s/Str :password s/Str}` (schema `LoginForm`)
   e compara com credenciais fixas (`admin@admin.com` / `admin`, hardcoded em
   `do-login`). Sucesso → 302 para `/home` + `:session {:user {...}}`. Falha →
   401 com body `"invalid email or password"`.
 - A rota `/login` tem `:interceptors [(csrf/anti-forgery)]` no nível da rota
-  (`routes.clj`), então tanto GET quanto POST passam pelo interceptor de
+  (`routes/pages.clj`), então tanto GET quanto POST passam pelo interceptor de
   CSRF do Pedestal.
 
 ## Como o CSRF do Pedestal funciona (`io.pedestal.http.csrf`)

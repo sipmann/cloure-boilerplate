@@ -44,7 +44,7 @@ and directory structure.
   does `(string/includes? (get headers "Content-Type") "application/json")`
   with no nil-guard. Workaround used in this repo: always set
   `"Content-Type"` explicitly on redirect responses in
-  `src/microservice_boilerplate/ports/http_in.clj`. See `docs/TODO.md` — an
+  `src/microservice_boilerplate/controllers/authentication.clj`. See `docs/TODO.md` — an
   upstream PR to fix `parsed-response` itself is still pending evaluation.
 - **`request!` doesn't keep a cookie jar** — each call is isolated (it's
   `io.pedestal.test/response-for` under the hood), so integration tests must
@@ -65,9 +65,12 @@ and directory structure.
 
 ## Conventions
 
-- Route handlers live in `src/microservice_boilerplate/ports/http_in.clj`;
-  routes/interceptors in `routes.clj`; templates rendered via `templates.clj`
-  (selmer).
+- Route handlers live under `src/microservice_boilerplate/ports/http_in/`,
+  split by concern: `pages.clj` (server-rendered HTML) and `api.clj` (JSON).
+  Routes mirror this split: `routes/pages.clj` and `routes/api.clj`, composed
+  into the final route vector in `routes.clj`. Interceptors (CSRF, etc.) are
+  attached per-group in the respective routes file. Templates rendered via
+  `templates.clj` (selmer).
 - Don't add error handling/validation beyond what schema already enforces at
   the boundary — this codebase leans on `prismatic/schema` for that.
 - Open questions / follow-ups for this project go in `docs/TODO.md`, not

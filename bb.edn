@@ -15,7 +15,7 @@
                     :task (clojure {:dir "."} "-M:dev:cider")}
 
          test      {:doc  "runs tests"
-                    :task (clojure {:dir "."} "-M:test")}
+                    :task (clojure {:dir "." :extra-env {"DB-PORT" "5433"}} "-M:test")}
 
          uberjar   {:doc  "builds the uberjar"
                     :task (clojure {:dir "."} "-T:build all")}

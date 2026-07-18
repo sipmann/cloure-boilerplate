@@ -14,6 +14,15 @@ and directory structure.
     this Windows machine. A benign `EmbeddedPostgres ... failed to stop
     postmaster` / `IllegalStateException` is printed after the summary line on
     shutdown — ignore it, it doesn't affect the test result.
+  - The embedded Postgres runs on port 5433, not the default 5432 — the `test`
+    task in `bb.edn` sets `DB-PORT=5433` via `:extra-env` (only for that child
+    process), and `test/integration/microservice_boilerplate/util.clj` reads
+    the same var to start `pg-embedded-clj` on that port. This means
+    integration tests work even with a real native Postgres already running
+    locally on 5432 — no need to stop it before running `bb test`. If you run
+    `clj -M:test :integration` directly (bypassing `bb test`), set `DB-PORT`
+    yourself first, or it'll default to 5432 and may collide with a local
+    Postgres.
 - Start the app: `bb run` (or `clj -M:dev`). REPL: `bb nrepl` / `bb cider`.
 - Format: `bb format` (cljstyle) or `clj -M:clojure-lsp format`.
 - Build uberjar: `bb uberjar`.
